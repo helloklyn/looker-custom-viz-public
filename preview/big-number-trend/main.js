@@ -1,25 +1,9 @@
-// NOTE: DEPENDENCIES - External
-// https://code.jquery.com/jquery-2.2.4.min.js,
-// https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js,
-// https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.js,
-// https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js,
-// https://code.highcharts.com/highcharts.js,
-// https://code.highcharts.com/modules/data.js,
-// https://code.highcharts.com/modules/exporting.js,
-// https://code.highcharts.com/modules/export-data.js,
-// https://code.highcharts.com/modules/accessibility.js,
-// https://code.highcharts.com/highcharts-more.js
-
-// NOTE: DEPENDENCIES - Local
-// https://localhost:4443/util.js
-
-// ANCHOR: Global Utility Functions
 // ANCHOR: Global Input Parameters
 // NOTE: this is the naming to follow in .lkml
 const inputDimensionNameLookML = "_date";
 
 const visObject = {
-  // Configuration options for your visualization.
+  // HELP: Configuration options for your visualization.
   // all option value will be referred as config.chart_type for example
   // LINK: https://github.com/hongkuiw/visualization-api-examples/blob/master/docs/api_reference.md
   options: {
@@ -329,8 +313,6 @@ const visObject = {
       var measureArray = [];
       var dataHighChartsMovingWindowAvgLine = [];
   
-      // console.log(dataHighCharts)
-  
       if (dataHighCharts.length > 7) {
         dataHighCharts.map((d) => { measureArray.push(d[1]) });
         var measureArrayMovingWindowAvg = movingAverage(measureArray,config.moving_average_window).slice(config.moving_average_window-1, -1);
@@ -369,7 +351,7 @@ const visObject = {
     var dataHighChartsMovingWindowAvgLine = chartInputParameters.dataHighChartsMovingWindowAvgLine
     var pointWidthResponsive = chartInputParameters.pointWidthResponsive
 
-    //ANCHOR: Actual Charting Function - Start
+    // ANCHOR: Actual Charting Function - Start
     Highcharts.chart("container", {
       chart: {
         zoomType: "x",
@@ -410,9 +392,6 @@ const visObject = {
           + '<p class="highcharts-metrics-growth-rate" style="color:' + dynamicColor(growthRateArrayYoY[0], config.positive_is_bad) + '">' + (growthRateArrayYoY[3] + growthRateArrayYoY[1]) + "</p>" + " YoY" + "; <br>"
           + '<p class="highcharts-as-of-date"> as of ' + (xHeaderName.split('.')[1]).split('_')[2] + ": " + asOfDate + "</p>",
         align: "left",
-        // style: {
-        //   color: dynamicColor(metricsMetaComparisonWow, config.positive_is_bad)
-        // },
         useHTML: false,
       },
       xAxis: {
@@ -497,7 +476,6 @@ const visObject = {
     });
 
     //ANCHOR: Actual Charting Function - Ends
-
     done();
   },
 };
