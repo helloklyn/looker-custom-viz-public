@@ -75,27 +75,27 @@ const visObject = {
       default: "7",
       values: [{ 3: "3" }, { 4: "4" }, { 6: "6" }, { 7: "7" }, { 14: "14" }, { 30: "30" }],
     },
-    is_show_reference_line: {
-      type: "boolean",
-      label: "8 Toggle for Reference Line",
-      default: false,
-    },
-    value_reference_line: {
-      type: "number",
-      label: "8.1 Value of Reference Line",
-      default: 0,
-    },
-    label_reference_line: {
-      type: "string",
-      label: "8.1 Label of Reference Line",
-      default: "",
-    },
-    line_color_reference_line: {
-      type: "string",
-      display: "color",
-      label: "8.2 Choose Reference Line Color",
-      default: "#FF5722",
-    },
+    // is_show_reference_line: {
+    //   type: "boolean",
+    //   label: "8 Toggle for Reference Line",
+    //   default: false,
+    // },
+    // value_reference_line: {
+    //   type: "number",
+    //   label: "8.1 Value of Reference Line",
+    //   default: 0,
+    // },
+    // label_reference_line: {
+    //   type: "string",
+    //   label: "8.1 Label of Reference Line",
+    //   default: "",
+    // },
+    // line_color_reference_line: {
+    //   type: "string",
+    //   display: "color",
+    //   label: "8.2 Choose Reference Line Color",
+    //   default: "#FF5722",
+    // },
   },
   create: function (element, config) {
     // NOTE: define Style and HTML DOM
@@ -381,7 +381,7 @@ const visObject = {
           + '<br>'
           + '<br>'
           + '<br>'
-          + '<p class="highcharts-metrics-value-latest">' + humanReadableNumber(percentageNumber(asOfDateValue.toFixed(4), config.is_percentage_number),config.is_human_readable) + "</p>",
+          + '<p class="highcharts-metrics-value-latest">' + humanReadableNumber(percentageNumber(asOfDateValue.toFixed(2), config.is_percentage_number),config.is_human_readable) + "</p>",
         align: "left",
       },
       subtitle: {
@@ -402,26 +402,29 @@ const visObject = {
           text: undefined,
           // remove yAxis label
         },
-        plotLines: [
-          {
-            value:
-              config.is_show_reference_line == false ? null : parseFloat(config.value_reference_line),
-            color:
-              config.is_show_reference_line == false ? null : config.line_color_reference_line,
-            width: config.is_show_reference_line == false ? 0 : 2,
-            label: {
-              formatter: function() {
-                return config.is_show_reference_line == false ? null : config.label_reference_line + ": " + this.options.value;
-              }
-            },
-          },
-        ],
+        // plotLines: [
+        //   {
+        //     value:
+        //       config.is_show_reference_line == false ? null : parseFloat(config.value_reference_line),
+        //     color:
+        //       config.is_show_reference_line == false ? null : config.line_color_reference_line,
+        //     width: config.is_show_reference_line == false ? 0 : 2,
+        //     label: {
+        //       formatter: function() {
+        //         return config.is_show_reference_line == false ? null : config.label_reference_line + ": " + this.options.value;
+        //       }
+        //     },
+        //   },
+        // ],
       },
       legend: {
         enabled: false,
       },
       credits: {
         enabled: false,
+      },
+      exporting: {
+        enabled: false
       },
       plotOptions: {
         area: {
