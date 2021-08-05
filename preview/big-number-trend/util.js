@@ -41,7 +41,7 @@ var calculateGrowthVsNPeriodAgo = (inputDataArraySortBasedOnTimeDescending, nPer
     var valueGrowth = valueCurrent - valueNPeriodAgo
     var valueGrowthFormatted = "(" + numeral(valueGrowth).format('0.00a') + ")"
     var valueGrowthRate = valueNPeriodAgo != 0 ? valueGrowth / valueNPeriodAgo : 1.0
-    var valueGrowthRateFormatted = (valueGrowth < 0 ? "↘" : "↗") + (valueGrowthRate*100).toFixed(2) + "%"
+    var valueGrowthRateFormatted = (valueGrowth < 0 ? "⬇" : "⬆") + (valueGrowthRate*100).toFixed(2) + "%"
     return [valueGrowth, valueGrowthFormatted, valueGrowthRate, valueGrowthRateFormatted]
   } else {
     return [NaN, NaN, NaN, NaN]
