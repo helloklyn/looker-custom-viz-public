@@ -3,9 +3,6 @@
 const inputDimensionNameLookML = "_date";
 
 const visObject = {
-  // HELP: Configuration options for your visualization.
-  // all option value will be referred as config.chart_type for example
-  // LINK: https://github.com/hongkuiw/visualization-api-examples/blob/master/docs/api_reference.md
   options: {
     chart_type: {
       type: "string",
@@ -75,30 +72,8 @@ const visObject = {
       default: "7",
       values: [{ 3: "3" }, { 4: "4" }, { 6: "6" }, { 7: "7" }, { 14: "14" }, { 30: "30" }],
     },
-    // is_show_reference_line: {
-    //   type: "boolean",
-    //   label: "8 Toggle for Reference Line",
-    //   default: false,
-    // },
-    // value_reference_line: {
-    //   type: "number",
-    //   label: "8.1 Value of Reference Line",
-    //   default: 0,
-    // },
-    // label_reference_line: {
-    //   type: "string",
-    //   label: "8.1 Label of Reference Line",
-    //   default: "",
-    // },
-    // line_color_reference_line: {
-    //   type: "string",
-    //   display: "color",
-    //   label: "8.2 Choose Reference Line Color",
-    //   default: "#FF5722",
-    // },
   },
   create: function (element, config) {
-    // NOTE: define Style and HTML DOM
     element.innerHTML = `
       <style>
       .highcharts-figure #container{
@@ -179,15 +154,8 @@ const visObject = {
       </figure>
       `;
   },
-  /**
-   * UpdateAsync is the function that gets called (potentially) multiple times. It receives
-   * the data and should update the visualization with the new data.
-   **/
   updateAsync: function (data, element, config, queryResponse, details, done) {
-    // Error Handling
-    // Clear any errors from previous updates.
     this.clearErrors();
-    // Throw some errors and exit if the shape of the data isn't what this chart needs.
     var errorMessage = `
     Instructions🧭
     This viz package requires
@@ -201,47 +169,27 @@ const visObject = {
       queryResponse.fields.dimensions.length == 0 ||
       (queryResponse.fields.dimensions.length == 1 && queryResponse.fields.measures.length > 1)
     ) {
-      // this.addError($(".highcharts-description").html(errorMessage));
-      // return;
       console.error(errorMessage);
       return;
     }
 
-    // console.log(data);
-    // console.log(element)
-    // console.log(config)
-    // console.log(queryResponse);
-    // console.log(details)
-    // console.log(done)
-
-    // ANCHOR: 1.0 - Processing queryResponse
-
     function prepareChartInputParameters(data, queryResponse) {
       
       var dataRecords = generateDataRecords(data);
-      
-      // ANCHOR: 1.6 - Get DOM Metadata to dynamically handle width of Bars in Bar Chart
       var highchartsFigureWidth = document.getElementsByClassName("highcharts-figure")[0].offsetWidth;
       var pointWidthResponsive = parseInt((highchartsFigureWidth / dataRecords.length) * 0.8);
       
-      // ANCHOR: 1.1 - Get Meta from queryResponse
       var viewName = queryResponse.fields.dimensions.length > 0 ? queryResponse.fields.dimensions[0].view : queryResponse.fields.measures[0].view;
       var measureName = queryResponse.fields.measures[0].name;
       measureMetaInfoValue = getFieldMetaInfoValue(queryResponse, measureName)
       
-      // ANCHOR: 1.1.1 - Process date aggregations
       var xHeaderName = queryResponse.fields.dimensions[0].name;
       var xHeaderNameDate = viewName + "." + inputDimensionNameLookML + "_date";
       var xHeaderNameMonth = viewName + "." + inputDimensionNameLookML + "_month";
-      // HELP: looker return format: 2021-05 → convert to 2021-05-01
       var xHeaderNameQuarter = viewName + "." + inputDimensionNameLookML + "_quarter";
-      // HELP: looker return format: 2021-Q1 → convert to 2021-01-01, 2021-04-01
       var xHeaderNameWeek = viewName + "." + inputDimensionNameLookML + "_week";
       var xHeaderNameYear = viewName + "." + inputDimensionNameLookML + "_year";
-      // HELP: looker return format: 2021 → convert to 2021-01-01
       
-      // ANCHOR: 1.1.2 - Process dataRecords with different level of aggregation
-      // HELP: convert them into yyyy-mm-dd ISO format then convert into unix timestamp
       switch (xHeaderName) {
         case xHeaderNameDate:
           dataRecords.forEach((d) => { d[xHeaderName] = Date.parse(d[xHeaderNameDate]) });
@@ -260,21 +208,14 @@ const visObject = {
           break;
       }
   
-      // ANCHOR: 1.2 - Sort Data for Latest Value
       var dataRecordsSorted = dataRecords.slice().sort((a, b) => d3.descending(a.xHeaderName, b.xHeaderName));
-      // HELP: sort pick latest value
       dataHighCharts = generateHighChartsDataSeries(dataRecordsSorted);
-  
-      // ANCHOR: 1.3 - Get Charting MetaData
       var chartTitle = queryResponse.fields.measures[0].label_short;
       var asOfDate = data[0][xHeaderName]["value"];
       var asOfDateValue = dataRecordsSorted[0][measureName];
-  
-      // ANCHOR: 1.4 - Preparing Growth Comparison
-      // HELP: generate 1D array
+
       var dataRecordsSorted1D = []
       dataHighCharts.forEach(d=>{ dataRecordsSorted1D.push(d[1]) })
-      // console.log(dataRecordsSorted1D)
   
       switch (xHeaderName) {
         case xHeaderNameDate:
@@ -309,16 +250,13 @@ const visObject = {
           break;
       }
   
-      // ANCHOR: 1.5 - Preparing Moving Avg Reference Line
       var measureArray = [];
       var dataHighChartsMovingWindowAvgLine = [];
   
       if (dataHighCharts.length > 7) {
         dataHighCharts.map((d) => { measureArray.push(d[1]) });
         var measureArrayMovingWindowAvg = movingAverage(measureArray,config.moving_average_window).slice(config.moving_average_window-1, -1);
-        // NOTE: move array forward
         dataHighCharts.map((e, i) => { dataHighChartsMovingWindowAvgLine.push([e[0],measureArrayMovingWindowAvg[i]]) });
-        // console.log(dataHighChartsMovingWindowAvgLine);
       }
 
       return {
@@ -351,7 +289,6 @@ const visObject = {
     var dataHighChartsMovingWindowAvgLine = chartInputParameters.dataHighChartsMovingWindowAvgLine
     var pointWidthResponsive = chartInputParameters.pointWidthResponsive
 
-    // ANCHOR: Actual Charting Function - Start
     Highcharts.chart("container", {
       chart: {
         zoomType: "x",
@@ -400,22 +337,7 @@ const visObject = {
       yAxis: {
         title: {
           text: undefined,
-          // remove yAxis label
         },
-        // plotLines: [
-        //   {
-        //     value:
-        //       config.is_show_reference_line == false ? null : parseFloat(config.value_reference_line),
-        //     color:
-        //       config.is_show_reference_line == false ? null : config.line_color_reference_line,
-        //     width: config.is_show_reference_line == false ? 0 : 2,
-        //     label: {
-        //       formatter: function() {
-        //         return config.is_show_reference_line == false ? null : config.label_reference_line + ": " + this.options.value;
-        //       }
-        //     },
-        //   },
-        // ],
       },
       legend: {
         enabled: false,
@@ -450,7 +372,6 @@ const visObject = {
 
       series: [
         {
-          // type: config.chart_type,
           id: "default",
           name: chartTitle,
           color: config.line_color,
@@ -477,8 +398,6 @@ const visObject = {
         },
       ],
     });
-
-    //ANCHOR: Actual Charting Function - Ends
     done();
   },
 };
