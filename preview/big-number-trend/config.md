@@ -1,3 +1,7 @@
+ID: mw_big_number_w_trend_preview
+Label: MW-Big Number w/ Trend(Preview)
+
+
 ## Main:
 https://cdn.jsdelivr.net/gh/hongkuiw/looker-viz-package/preview/big-number-trend/main.js
 ## Dependencies: 
@@ -35,3 +39,15 @@ https://cdn.jsdelivr.net/gh/hongkuiw/looker-viz-package/preview/big-number-trend
 
 
 
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/jquery-2.2.4.min.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/d3-4.13.0.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/d3-array.min-3.0.1.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/underscore-min-1.9.1.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/numeral.min-2.0.6.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/highcharts-9.1.2.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/highcharts-accessibility-9.1.2.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/highcharts-data-9.1.2.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/highcharts-export-data-9.1.2.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/highcharts-exporting-9.1.2.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/highcharts-more-9.1.2.js
+, https://cdn.jsdelivr.net/gh/hongwuxyz/looker-custom-viz-public/external-dependencies/tidy.min-2.4.2.js
