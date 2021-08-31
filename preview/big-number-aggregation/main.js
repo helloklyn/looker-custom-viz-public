@@ -23,7 +23,7 @@ const visObject = {
       type: "string",
       display: "select",
       label: "4. Select Aggregation Type",
-      default: "sum",
+      default: 'sum',
       values: [
         { sum: "sum" },
         { average: "average" },
