@@ -401,11 +401,8 @@ const visObject = {
       ],
       tooltip: {
         formatter: function() {
-          // console.log(this.series)
+          console.log(this.series)
           return this.series.name + ":" + '<br>' + humanReadableNumber(percentageNumber(parseFloat(this.y), config.is_percentage_number),config.is_human_readable) 
-        },
-        style: {
-          color: "#000000",
         }
       }
     });

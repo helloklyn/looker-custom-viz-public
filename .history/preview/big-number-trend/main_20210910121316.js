@@ -148,9 +148,6 @@ const visObject = {
         font-style: italic;
         fill: #999999 !important;
       }
-      .highcharts-tooltip {
-        font-family: "Circular Spotify Text", Helvetica, Arial, sans-serif;
-      }
       </style>
       <figure class="highcharts-figure">
       <div id="container"></div>
@@ -401,11 +398,7 @@ const visObject = {
       ],
       tooltip: {
         formatter: function() {
-          // console.log(this.series)
-          return this.series.name + ":" + '<br>' + humanReadableNumber(percentageNumber(parseFloat(this.y), config.is_percentage_number),config.is_human_readable) 
-        },
-        style: {
-          color: "#000000",
+          return return humanReadableNumber(percentageNumber(parseFloat(this.y), config.is_percentage_number),config.is_human_readable) 
         }
       }
     });

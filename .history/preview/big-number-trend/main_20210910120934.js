@@ -148,9 +148,6 @@ const visObject = {
         font-style: italic;
         fill: #999999 !important;
       }
-      .highcharts-tooltip {
-        font-family: "Circular Spotify Text", Helvetica, Arial, sans-serif;
-      }
       </style>
       <figure class="highcharts-figure">
       <div id="container"></div>
@@ -387,7 +384,7 @@ const visObject = {
         },
         {
           id: "movingWindowAvgLine",
-          name: "Moving " + config.moving_average_window + ((xHeaderName.split('.')[1]).split('_')[2]).charAt(0) +" Avg. " + chartTitle,
+          name: "Moving HAHA" + config.moving_average_window + ((xHeaderName.split('.')[1]).split('_')[2]).charAt(0) +" Avg. " + chartTitle,
           color: config.line_color_secondary,
           data: dataHighChartsMovingWindowAvgLine,
           pointWidth: pointWidthResponsive,
@@ -399,15 +396,6 @@ const visObject = {
           visible: config.is_show_moving_average_line,
         },
       ],
-      tooltip: {
-        formatter: function() {
-          // console.log(this.series)
-          return this.series.name + ":" + '<br>' + humanReadableNumber(percentageNumber(parseFloat(this.y), config.is_percentage_number),config.is_human_readable) 
-        },
-        style: {
-          color: "#000000",
-        }
-      }
     });
     done();
   },

@@ -148,9 +148,6 @@ const visObject = {
         font-style: italic;
         fill: #999999 !important;
       }
-      .highcharts-tooltip {
-        font-family: "Circular Spotify Text", Helvetica, Arial, sans-serif;
-      }
       </style>
       <figure class="highcharts-figure">
       <div id="container"></div>
@@ -321,7 +318,7 @@ const visObject = {
           + '<br>'
           + '<br>'
           + '<br>'
-          + '<p class="highcharts-metrics-value-latest">' + humanReadableNumber(percentageNumber(asOfDateValue.toFixed(4), config.is_percentage_number),config.is_human_readable) + "</p>",
+          + '<p class="highcharts-metrics-value-latest">' + humanReadableNumber(percentageNumber(asOfDateValue.toFixed(2), config.is_percentage_number),config.is_human_readable) + "</p>",
         align: "left",
       },
       subtitle: {
@@ -372,6 +369,7 @@ const visObject = {
           threshold: null,
         },
       },
+
       series: [
         {
           id: "default",
@@ -399,15 +397,6 @@ const visObject = {
           visible: config.is_show_moving_average_line,
         },
       ],
-      tooltip: {
-        formatter: function() {
-          // console.log(this.series)
-          return this.series.name + ":" + '<br>' + humanReadableNumber(percentageNumber(parseFloat(this.y), config.is_percentage_number),config.is_human_readable) 
-        },
-        style: {
-          color: "#000000",
-        }
-      }
     });
     done();
   },
