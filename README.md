@@ -1,10 +1,11 @@
+# Metrics as a Widget
 # A repo of Looker Custom Viz Packages
 
 ## Instruction
 
 added from Admin/Visualization Panel
 
-![image-20210716185259388](https://tva1.sinaimg.cn/large/008i3skNgy1gsjke05xm8j30u00x577w.jpg)
+![img](assets/as_of_2021_05_23_Conversion_rate_graph_animation.gif)
 
 Add main
 
